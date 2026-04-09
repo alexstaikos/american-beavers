@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>American Beavers — Alex Staikos</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:  #0d1f3c;
+      --blue:  #1d4ed8;
+      --pale:  #eff6ff;
+      --white: #ffffff;
+      --gray:  #6b7280;
+      --text:  #111827;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    nav a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    @media (max-width: 640px) {
+      nav { gap: 16px; padding: 12px 16px; flex-wrap: wrap; height: auto; }
+      nav a { font-size: 0.68rem; }
+    }
+
+    .hero {
+      height: 100vh;
+      min-height: 580px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,31,60,0.5) 0%, rgba(13,31,60,0.78) 100%);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      color: var(--white);
+      padding: 0 24px;
+      max-width: 820px;
+    }
+
+    .hero-kicker {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.65);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 90px 24px;
+    }
+
+    .inner {
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+
+    p {
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    p:last-of-type { margin-bottom: 0; }
+
+    .photo-full {
+      width: 100%;
+      height: 480px;
+      overflow: hidden;
+    }
+
+    .photo-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+    }
+
+    .split img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .split-text {
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--pale);
+    }
+
+    @media (max-width: 768px) {
+      .split { grid-template-columns: 1fr; }
+      .split img { height: 300px; }
+      .split-text { padding: 56px 28px; }
+    }
+
+    .dark { background: var(--navy); }
+    .dark .label { color: #93c5fd; }
+    .dark h2 { color: var(--white); }
+    .dark p { color: rgba(255,255,255,0.72); }
+
+    .refs {
+      padding: 80px 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .refs-inner {
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .refs ol {
+      padding-left: 20px;
+      font-size: 0.88rem;
+      color: #374151;
+      line-height: 1.9;
+    }
+
+    .refs ol li { margin-bottom: 12px; }
+    .refs a { color: var(--blue); text-decoration: none; }
+    .refs a:hover { text-decoration: underline; }
+
+    footer {
+      background: var(--navy);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.06em;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#intro">Introduction</a>
+  <a href="#context">Context</a>
+  <a href="#science">Science</a>
+  <a href="#policy">Policy</a>
+  <a href="#conclusion">Conclusion</a>
+  <a href="#refs">Resources</a>
+</nav>
+
+<div class="hero">
+  <img src="beaver/North-American-Beaver.jpg" alt="American beaver in its natural habitat" />
+  <div class="hero-overlay"></div>
+  <div class="hero-text">
+    <div class="hero-kicker">ENR 4500 · Spring 2026 · Alex Staikos</div>
+    <h1>American Beavers: Ecosystem Engineers at a Crossroads</h1>
+    <p>Exploring the conflict between ecological value and economic damage in South Carolina.</p>
+  </div>
+</div>
+
+<!-- INTRODUCTION -->
+<section id="intro">
+  <div class="inner">
+    <div class="label">Introduction</div>
+    <h2>The Animal That Builds Its Own World</h2>
+    <p>American beavers (<em>Castor canadensis</em>) are one of North America's most significant keystone species. Beaver dams create habitat for fish, waterfowl, birds, and hundreds of plant species (Singleton and Taylor 2010). In the past, beaver populations have struggled due to unregulated fur harvest, which reduced the population from 60–400 million down to only 100,000 by the early 1900s (Scamardo et al. 2022). The population now stands at an estimated 10–15 million and is growing quickly (Scamardo et al. 2022).</p>
+    <p>Although the population is seeing some success, American beavers still cause millions of dollars in economic loss across timber, agriculture, and transportation networks (Singleton and Taylor 2010). American beaver populations have been managed as furbearers using regulated harvesting methods (SCDNR 2023). It is clear that American beaver dam behavior creates an array of wetland habitat but also introduces multiple management challenges that must be addressed.</p>
+  </div>
+</section>
+
+<div class="photo-full">
+  <img src="beaver/Beaver.jpg" alt="American beaver on a riverbank" />
+</div>
+
+<!-- CONTEXT -->
+<section id="context" style="background: var(--pale);">
+  <div class="inner">
+    <div class="label">Social, Political, and Historical Context</div>
+    <h2>Why This Issue Matters Beyond the Wetland</h2>
+    <p>South Carolina's beaver population has recovered significantly since its mid-20th century fur-trade depletion, creating immense management challenges. American beaver populations were reduced to near extinction in much of the Southeast by the early 1900s due to unregulated harvest (Baker and Hill 2003). Since then, numerous trapping regulations have been put in place to bring the population back to a stable level (Baker and Hill 2003). Although the population has rebounded, their reconciliation in timber and agricultural areas has created substantial landowner conflict and economic loss through flooding (Taylor et al. 2017).</p>
+    <p>In South Carolina, beavers are classified as furbearers, meaning they are actively managed and harvested due to the economic damage they cause. Their dams can cause severe damage to agricultural land, timber operations, infrastructure, and property. This creates a tension between their ecological value and their economic damage. The population recovery of American beavers is considered a success, but much more needs to be done to consider how different harvest intensities affect long-term population growth in order to properly allocate management.</p>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<div class="split" id="science">
+  <img src="beaver/beaver-overpopulation-tierra-del-fuego-02.avif" alt="Beaver dam flooding a forested landscape" />
+  <div class="split-text">
+    <div class="label">Scientific Background</div>
+    <h2>How the Science Helps Us Understand the Problem</h2>
+    <p>When beavers impound streams, they raise water tables and filter sediments while cycling nutrients, providing habitat for a wide range of plants, fish, amphibians, and mammals (Naiman et al. 1988). In South Carolina, expanding American beaver populations have created increasing conflicts with forest and agricultural practices.</p>
+    <p>Beavers have caused millions of dollars of damage every year in timber, crop and beef production (Shwiff et al. 2011). To combat this, the obvious answer is to harvest more beavers. This seems like a simple solution at first but, is it really sustainable?</p>
+    <p>Studies have shown that harvest rates below approximately 32 percent allow populations to persist and recover, while any harvest above that threshold is not considered sustainable (Runge 1999). This is a population level management challenge that requires a science based response. If done in a scientific manner, research on beaver harvest rates can significantly aid managers to ensure harvest is done sustainably.</p>
+  </div>
+</div>
+
+<!-- POLICY -->
+<section id="policy">
+  <div class="inner">
+    <div class="label">Policy and Management Options</div>
+    <h2>What Could Actually Be Done</h2>
+    <p>Like I mentioned previously, experiments on sustainable harvest can and should be done. This will help determine population abundance of American beavers, explaining how many or how few can be taken to aid economic loss without depleting the population.</p>
+    <p>Non-lethal tools also exist. Pond levelers control water levels through a dam without lethal removal and are more cost-effective than repeated trapping over time (Pollock et al. 2014). Live trapping and relocation moves problem beavers to sites where their dam-building is an asset rather than a liability.</p>
+    <p>Both of these responses will significantly reduce agricultural damage while ensuring the longevity of the population in South Carolina and around the country.</p>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section id="conclusion" class="dark">
+  <div class="inner">
+    <div class="label">Conclusion</div>
+    <h2>The Path Forward</h2>
+    <p>The population recovery of American beavers is considered a success, but much more needs to be done to consider how different harvest intensities affect long term population growth. We must explore these issues further to ensure beavers are protected while also reducing economic hardship on local agricultural communities.</p>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<div class="refs" id="refs">
+  <div class="refs-inner">
+    <div class="label">Resources</div>
+    <h2>Literature Cited</h2>
+    <ol>
+      <li>Baker, B. W., and E. P. Hill. 2003. Beaver (<em>Castor canadensis</em>). Pages 288–310 in G. A. Feldhamer et al., editors. Wild mammals of North America. Johns Hopkins University Press.</li>
+      <li>Bloomquist, C. K., and C. K. Nielsen. 2010. Demography of unexploited beavers in southern Illinois. <em>Journal of Wildlife Management</em> 74:228–235.</li>
+      <li>Naiman, R. J., C. A. Johnston, and J. C. Kelley. 1988. Alteration of North American streams by beaver. <em>BioScience</em> 38(11):753–762.</li>
+      <li>Pollock, M. M. et al. 2014. Using beaver dams to restore incised stream ecosystems. <em>BioScience</em> 64(4):279–290. <a href="https://doi.org/10.1093/biosci/biu036" target="_blank">doi.org/10.1093/biosci/biu036</a></li>
+      <li>Runge, M. C. 1999. Design and analysis of a population model for beaver. Cornell Biometrics Unit Technical Series BU-1462.</li>
+      <li>Scamardo, J. E., S. Marshall, and E. Wohl. 2022. Estimating widespread beaver dam loss. <em>Ecosphere</em> 13(3):e3962. <a href="https://doi.org/10.1002/rra.4033" target="_blank">doi.org/10.1002/rra.4033</a></li>
+      <li>Shwiff, S. A., K. N. Kirkpatrick, and K. Godwin. 2011. Economic evaluation of beaver management. <em>Human–Wildlife Interactions</em> 5:265–273.</li>
+      <li>Singleton, R. D., and J. D. Taylor. 2010. Composition of beaver colonies in damage sites of the southeastern United States. <em>Proc. Annual Conf. SEAFWA</em> 64:95–100.</li>
+      <li>South Carolina Department of Natural Resources. 2023. Beaver management and control in South Carolina. <a href="https://www.dnr.sc.gov/wildlife/furbearers/beaver.html" target="_blank">dnr.sc.gov/wildlife/furbearers/beaver.html</a></li>
+      <li>Taylor, J. D., G. K. Yarrow, and J. E. Miller. 2017. Beavers. Wildlife Damage Management Technical Series. USDA-APHIS.</li>
+    </ol>
+  </div>
+</div>
+
+<footer>
+  ENR 4500 · Spring 2026 · Alex Staikos · Clemson University
+</footer>
+
+</body>
+</html>
